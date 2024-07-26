@@ -4,5 +4,6 @@ const dbUrl = process.env.MONGO_URI;
 const clientUrl = process.env.CLIENT_URL;
 const jwtSecret = process.env.JWT_SECRET;
 const PORT = process.env.PORT;
+const sessionId = "sessionId";
 
-export {envMode, dbName, dbUrl, clientUrl, jwtSecret, PORT};
+export {envMode, dbName, dbUrl, clientUrl, jwtSecret, PORT, sessionId};

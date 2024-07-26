@@ -13,10 +13,24 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, "Provide email!"],
         unique: true,
         trim: true,
         lowercase: true
+    },
+    countryCode: {
+        type: String,
+        required: [true, "Provide Country Code!"],
+        trim: true,
+        minLength: 2,
+        maxLength: 3,
+    },
+    mobileNumber: {
+        type: String,
+        required: [true, "Provide Mobile Number!"],
+        unique: true,
+        trim: true,
+        minlength: 10,
+        maxlength: 10
     },
     password: {
         type: String,

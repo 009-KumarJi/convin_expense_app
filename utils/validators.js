@@ -20,3 +20,5 @@ const loginValidator = () => [
     body("username", "Enter username!").notEmpty(),
     body("password", "Enter password!").notEmpty(),
 ];
+
+export {validateHandler, registerValidator, loginValidator};
