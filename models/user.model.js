@@ -1,5 +1,3 @@
-// models/User.js
-
 import mongoose from "mongoose";
 import { hash } from "bcrypt";
 
@@ -19,10 +17,6 @@ const userSchema = new mongoose.Schema({
         unique: true,
         trim: true,
         lowercase: true
-    },
-    dob: {
-        type: Date,
-        required: [true, "Provide Date of Birth!"]
     },
     password: {
         type: String,
@@ -54,3 +48,5 @@ userSchema.pre("save", async function (next) {
 });
 
 export const User = mongoose.models.User || mongoose.model("User", userSchema);
+
+// server/models/user.model.js

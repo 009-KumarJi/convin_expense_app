@@ -1,6 +1,4 @@
-// models/Expense.js
-
-import mongoose, { model } from "mongoose";
+import mongoose from "mongoose";
 
 const expenseSchema = new mongoose.Schema(
     {
@@ -12,6 +10,7 @@ const expenseSchema = new mongoose.Schema(
         amount: {
             type: Number,
             required: [true, "Provide the total amount for the expense"],
+            min: [0, "Amount must be greater than or equal to 0"],
         },
         splitMethod: {
             type: String,
@@ -28,15 +27,12 @@ const expenseSchema = new mongoose.Schema(
                 amount: {
                     type: Number,
                     required: [true, "Provide the amount for the participant"],
+                    min: [0, "Amount must be greater than or equal to 0"],
                 },
                 percentage: {
                     type: Number,
-                    validate: {
-                        validator: function (v) {
-                            return this.splitMethod !== "percentage" || v > 0;
-                        },
-                        message: "Percentage must be greater than 0",
-                    },
+                    min: [0, "Percentage must be greater than or equal to 0"],
+                    max: [100, "Percentage must be less than or equal to 100"],
                 },
             },
         ],
@@ -51,7 +47,6 @@ const expenseSchema = new mongoose.Schema(
     }
 );
 
-export const Expense = mongoose.models.Expense || model("Expense", expenseSchema);
-
+export const Expense = mongoose.models.Expense || mongoose.model("Expense", expenseSchema);
 
 // server/models/expense.model.js
