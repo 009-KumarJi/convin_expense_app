@@ -49,4 +49,13 @@ const addExpenseValidator = () => [
         }),
 ];
 
-export { validateHandler, registerValidator, loginValidator, addExpenseValidator };
+const updateExpenseValidator = () => [
+    body("description").optional().notEmpty().withMessage("Provide a description for the expense"),
+    body("amount").optional().isFloat({ min: 0 }).withMessage("Provide a valid amount"),
+    body("splitMethod").optional().isIn(["equal", "exact", "percentage"]).withMessage("Provide a valid split method"),
+    body("participants").optional().isArray({ min: 1 }).withMessage("Provide at least one participant"),
+    body("participants.*.user").optional().isMongoId().withMessage("Provide a valid user ID for each participant"),
+    body("status").optional().isIn(["pending", "settled"]).withMessage("Provide a valid status"),
+];
+
+export { validateHandler, registerValidator, loginValidator, addExpenseValidator, updateExpenseValidator };

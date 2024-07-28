@@ -27,10 +27,17 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
+// Log each request route
 app.use((req, res, next) => {
+    sout("----------------------------------------------------------------------------------")
     sout(`Route being hit: ${req.method} ${req.path}`);
+    sout("Req Body", req.body);
+    sout("Req Params", req.params);
+    sout("Req Query", req.query);
+    sout("----------------------------------------------------------------------------------")
     next();
 });
+
 
 app.use("/api/users", userRoutes); // User Endpoints
 app.use("/api/expenses", expensesRoutes); // Expenses Endpoints

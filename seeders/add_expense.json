@@ -1,34 +1,62 @@
 [
   {
-    "description": "Dinner with friends",
-    "amount": 3000,
+    "description": "Lunch at restaurant",
+    "amount": 7500,
     "splitMethod": "equal",
     "participants": [
-      { "user": "64b69a8ff23b700a9002a1ee" }, // Alice
-      { "user": "64b69aabf23b700a9002a1f0" }, // Bob
-      { "user": "64b69ab2f23b700a9002a1f2" }, // Charlie
-      { "user": "64b69b1df23b700a9002a1f4" }  // John Doe
+      {
+        "user": "66a6898ff23b700a9002b9ee",
+        "amount": 25,
+        "percentage": 33.33
+      },
+      {
+        "user": "66a689abf23b700a9002b9f0",
+        "amount": 25,
+        "percentage": 33.33
+      },
+      {
+        "user": "66a689b2f23b700a9002b9f2",
+        "amount": 25,
+        "percentage": 33.33
+      }
     ]
   },
   {
-    "description": "Shopping spree",
-    "amount": 4299,
+    "description": "Office supplies",
+    "amount": 15000,
     "splitMethod": "exact",
     "participants": [
-      { "user": "64b69a8ff23b700a9002a1ee", "amount": 1500 }, // Alice
-      { "user": "64b69aabf23b700a9002a1f0", "amount": 799 },  // Bob
-      { "user": "64b69ab2f23b700a9002a1f2", "amount": 2000 }, // Charlie
-      { "user": "64b69b1df23b700a9002a1f4", "amount": 0 }     // John Doe
+      {
+        "user": "66a6898ff23b700a9002b9ee",
+        "amount": 6000
+      },
+      {
+        "user": "66a689abf23b700a9002b9f0",
+        "amount": 4000
+      },
+      {
+        "user": "66a689b2f23b700a9002b9f2",
+        "amount": 5000
+      }
     ]
   },
   {
-    "description": "Party expenses",
-    "amount": 1000,
+    "description": "Team outing",
+    "amount": 2000,
     "splitMethod": "percentage",
     "participants": [
-      { "user": "64b69a8ff23b700a9002a1ee", "percentage": 50 }, // Alice
-      { "user": "64b69aabf23b700a9002a1f0", "percentage": 25 }, // Bob
-      { "user": "64b69ab2f23b700a9002a1f2", "percentage": 25 }  // Charlie
+      {
+        "user": "66a6898ff23b700a9002b9ee",
+        "percentage": 50
+      },
+      {
+        "user": "66a689abf23b700a9002b9f0",
+        "percentage": 30
+      },
+      {
+        "user": "66a689b2f23b700a9002b9f2",
+        "percentage": 20
+      }
     ]
   }
 ]
