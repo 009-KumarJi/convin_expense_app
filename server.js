@@ -1,13 +1,13 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import {connectDB} from "./utils/features.js";
 import {sout} from "./utils/utility.js";
-import {clientUrl, dbName, dbUrl, envMode, PORT} from "./utils/constants.js";
+import {clientUrl, dbName, dbUrl, envMode, PORT, printAll} from "./utils/constants.js";
 import cookieParser from "cookie-parser";
 import {errorMiddleware} from "./middlewares/error.middleware.js";
-
-dotenv.config({path: "./.env"});
+import userRoutes from "./routes/user.routes.js";
+import expensesRoutes from "./routes/expenses.routes.js";
+import {getBalanceSheet} from "./controllers/expense.controller.js";
 
 const corsOptions = {
     origin: clientUrl,
@@ -15,6 +15,7 @@ const corsOptions = {
     methods: ["GET", "POST", "PUT", "DELETE"],
 }; sout("CORs Options: ", corsOptions);
 
+printAll();
 
 connectDB(dbUrl, dbName);
 
@@ -29,8 +30,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/api/v1/users", userRoutes); // User Endpoints
-app.use("/api/v1/expenses", expenseRoutes); // Expense Endpoints
+app.use("/api/users", userRoutes); // User Endpoints
+app.use("/api/expenses", expensesRoutes); // Expenses Endpoints
+app.use("/api/balance-sheet", getBalanceSheet); // download balance-sheet
+
 
 app.use(errorMiddleware);
 

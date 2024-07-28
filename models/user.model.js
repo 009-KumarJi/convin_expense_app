@@ -1,56 +1,45 @@
 import mongoose from "mongoose";
-import { hash } from "bcrypt";
+import {hash} from "bcrypt";
 
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, "Provide Your name"],
+        required: [true, "Provide your name"],
         trim: true
-    },
-    username: {
-        type: String,
-        required: [true, "Provide a Username!"]
     },
     email: {
         type: String,
         unique: true,
+        required: [true, "Provide an email"],
         trim: true,
-        lowercase: true
-    },
-    countryCode: {
-        type: String,
-        required: [true, "Provide Country Code!"],
-        trim: true,
-        minLength: 2,
-        maxLength: 3,
+        lowercase: true,
+        validate: {
+            validator: function (v) {
+                return /^\S+@\S+\.\S+$/.test(v);
+            },
+            message: props => `${props.value} is not a valid email!`
+        }
     },
     mobileNumber: {
         type: String,
-        required: [true, "Provide Mobile Number!"],
         unique: true,
+        required: [true, "Provide mobile number"],
         trim: true,
         minlength: 10,
-        maxlength: 10
+        maxlength: 15
     },
     password: {
         type: String,
-        required: [true, "Please provide a password"],
-        select: false,
+        required: [true, "Provide a password"],
+        select: false
     },
     avatar: {
-        public_id: {
-            type: String,
-            trim: true,
-        },
-        url: {
-            type: String,
-            trim: true
-        },
+        type: String,
     },
-    expenseId: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Expense"
-    }]
+    gender: {
+        type: String,
+        enum: ["male", "female"]
+    }
 }, {
     timestamps: true
 });
@@ -62,5 +51,3 @@ userSchema.pre("save", async function (next) {
 });
 
 export const User = mongoose.models.User || mongoose.model("User", userSchema);
-
-// server/models/user.model.js

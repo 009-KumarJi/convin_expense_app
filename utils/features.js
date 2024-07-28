@@ -1,6 +1,8 @@
+// utils/features.js
+
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import {sessionId} from "./constants.js";
+import {jwtSecret, sessionId} from "./constants.js";
 
 const cookieOptions = {
     maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
@@ -23,7 +25,7 @@ const connectDB = (uri, dbName) => {
 }
 
 const sendToken = (res, user, code, message) => {
-    const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+    const token = jwt.sign({id: user._id}, jwtSecret);
     return res
         .status(code)
         .cookie(sessionId, token, cookieOptions)
@@ -35,4 +37,4 @@ const sendToken = (res, user, code, message) => {
 };
 
 
-export {connectDB, sendToken};
+export {connectDB, sendToken, cookieOptions};
