@@ -1,6 +1,6 @@
 import express from "express";
 import { isAuthenticated } from "../middlewares/auth.middleware.js";
-import { addExpense, getAllExpenses, getExpenseById, updateExpense, deleteExpense, getUserExpenses, getBalanceSheet } from "../controllers/expense.controller.js";
+import { addExpense, getAllExpenses, getExpenseById, updateExpense, deleteExpense, getUserExpenses } from "../controllers/expense.controller.js";
 import { addExpenseValidator, validateHandler } from "../utils/validators.js";
 
 const router = express.Router();
@@ -8,7 +8,7 @@ const router = express.Router();
 router.use(isAuthenticated);
 
 // Add a new expense
-router.post("/", addExpenseValidator(), validateHandler, addExpense);
+router.post("/", addExpenseValidator(), validateHandler, addExpense); // --ok
 
 // Retrieve all expenses
 router.get("/", getAllExpenses);

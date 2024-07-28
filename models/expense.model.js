@@ -25,23 +25,16 @@ const expenseSchema = new mongoose.Schema({
         amount: {
             type: Number,
             min: [0, "Amount must be greater than or equal to 0"],
-            validate: {
-                validator: function (v) {
-                    return this.parent().splitMethod === 'exact' || v === undefined;
-                },
-                message: "Amount should only be provided for 'exact' split method"
-            }
         },
         percentage: {
             type: Number,
             min: [0, "Percentage must be greater than or equal to 0"],
             max: [100, "Percentage must be less than or equal to 100"],
-            validate: {
-                validator: function (v) {
-                    return this.parent().splitMethod === 'percentage' || v === undefined;
-                },
-                message: "Percentage should only be provided for 'percentage' split method"
-            }
+        },
+        status: {
+            type: String,
+            enum: ["pending", "settled"],
+            default: "pending"
         }
     }],
     createdBy: {

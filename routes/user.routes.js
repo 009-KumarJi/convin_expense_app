@@ -16,7 +16,7 @@ router.post("/login", loginValidator(), validateHandler, login);
 router.use(isAuthenticated);
 
 // Get authenticated user's profile
-router.get("/profile", getMyProfile);
+router.get("/me", getMyProfile);
 
 // Logout a user
 router.get("/logout", logout);

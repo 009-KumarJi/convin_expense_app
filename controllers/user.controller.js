@@ -5,14 +5,13 @@ import { cookieOptions, sendToken } from "../utils/features.js";
 import { compare } from "bcrypt";
 import {avatarUrl, sessionId} from "../utils/constants.js";
 
-const register = TryCatch(async (req, res, next) => {
-    const { name, email, mobileNumber, password, username, gender } = req.body;
+const register = TryCatch(async (req, res) => {
+    const { name, email, mobileNumber, password, gender } = req.body;
 
     sout(req.body);
 
     const user = await User.create({
         name,
-        username,
         email,
         mobileNumber,
         password,
@@ -24,9 +23,9 @@ const register = TryCatch(async (req, res, next) => {
 });
 
 const login = TryCatch(async (req, res, next) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    const user = await User.findOne({ username }).select("+password");
+    const user = await User.findOne({ email }).select("+password");
     if (!user) return next(new ErrorHandler("Invalid credentials", 401));
 
     const isPasswordCorrect = await compare(password, user.password);
