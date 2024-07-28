@@ -2,8 +2,7 @@ import {TryCatch} from "../middlewares/error.middleware.js";
 import {ErrorHandler, sout} from "../utils/utility.js";
 import {Expense} from "../models/expense.model.js";
 import {User} from "../models/user.model.js";
-import {generateCSV, generatePDF} from "../helper/balancesheet.helper.js";
-import mongoose from "mongoose";
+import {generateCSV} from "../helper/balancesheet.helper.js";
 
 // Add a new expense
 const addExpense = TryCatch(async (req, res, next) => {
@@ -218,7 +217,7 @@ const getUserExpenses = TryCatch(async (req, res, next) => {
 
 // Download balance sheet
 const getBalanceSheet = TryCatch(async (req, res, next) => {
-    const {type} = req.body; // Expected types: 'csv', 'pdf', 'doc'
+    const { type } = req.body; // Expected type: 'csv'
     const expenses = await Expense.find();
     const balanceSheet = {};
 
@@ -232,7 +231,7 @@ const getBalanceSheet = TryCatch(async (req, res, next) => {
         });
     });
 
-    const userDetails = await User.find({_id: {$in: Object.keys(balanceSheet)}}).select("name email");
+    const userDetails = await User.find({ _id: { $in: Object.keys(balanceSheet) } }).select("name email");
     const balanceSheetWithDetails = userDetails.map((user) => ({
         user: user._id,
         name: user.name,
@@ -243,9 +242,6 @@ const getBalanceSheet = TryCatch(async (req, res, next) => {
     switch (type) {
         case "csv":
             generateCSV(res, balanceSheetWithDetails, next);
-            break;
-        case "pdf":
-            generatePDF(res, balanceSheetWithDetails, next);
             break;
         default:
             res.status(200).json({

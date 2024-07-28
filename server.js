@@ -41,7 +41,7 @@ app.use((req, res, next) => {
 
 app.use("/api/users", userRoutes); // User Endpoints
 app.use("/api/expenses", expensesRoutes); // Expenses Endpoints
-app.use("/api/balance-sheet", getBalanceSheet); // download balance-sheet
+app.get("/api/balance-sheet", getBalanceSheet); // download balance-sheet
 
 
 app.use(errorMiddleware);
